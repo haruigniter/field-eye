@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Field Eye | iPresence株式会社</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #0D1B2A;
+  --navy-mid: #1A2E42;
+  --blue: #1A5276;
+  --blue-bright: #2471A3;
+  --teal: #148F77;
+  --teal-bright: #1ABC9C;
+  --silver: #BDC3C7;
+  --light: #ECF0F1;
+  --white: #FFFFFF;
+  --accent: #E8B84B;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Noto Sans JP', sans-serif; background: var(--navy); color: var(--white); overflow-x: hidden; }
+
+/* ── HERO ── */
+.hero { min-height: 100vh; display: grid; grid-template-rows: auto 1fr auto; position: relative; overflow: hidden; }
+.hero-bg {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 80% 60% at 70% 40%, rgba(26,82,118,0.35) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 40% at 20% 80%, rgba(20,143,119,0.2) 0%, transparent 60%), var(--navy);
+  z-index: 0;
+}
+.grid-lines {
+  position: absolute; inset: 0; z-index: 0; opacity: 0.06;
+  background-image: linear-gradient(rgba(255,255,255,0.8) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.8) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+nav {
+  position: relative; z-index: 10;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 28px 60px; border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.logo { font-family: 'DM Sans', sans-serif; font-weight: 500; font-size: 20px; letter-spacing: 0.05em; color: var(--white); }
+.logo span { color: var(--teal-bright); }
+.nav-badge { font-size: 11px; font-weight: 400; color: var(--silver); border: 1px solid rgba(255,255,255,0.2); padding: 5px 14px; border-radius: 20px; letter-spacing: 0.08em; }
+.hero-content { position: relative; z-index: 10; display: flex; flex-direction: column; justify-content: center; padding: 80px 60px 60px; max-width: 920px; }
+.hero-eyebrow { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; }
+.product-name { font-family: 'Bebas Neue', sans-serif; font-size: 52px; letter-spacing: 0.12em; color: var(--teal-bright); line-height: 1; }
+.product-by { font-size: 13px; color: rgba(255,255,255,0.4); font-weight: 300; letter-spacing: 0.1em; align-self: flex-end; padding-bottom: 8px; }
+.hero-label { font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 400; letter-spacing: 0.25em; color: rgba(255,255,255,0.45); text-transform: uppercase; }
+h1.hero-title { font-weight: 700; font-size: clamp(34px, 5vw, 60px); line-height: 1.25; margin-bottom: 28px; letter-spacing: -0.01em; }
+h1.hero-title .accent { color: var(--teal-bright); }
+.hero-desc { font-size: 17px; font-weight: 300; line-height: 1.9; color: rgba(255,255,255,0.68); max-width: 580px; margin-bottom: 48px; }
+.hero-cta { display: flex; gap: 16px; flex-wrap: wrap; }
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: var(--teal-bright); color: var(--navy);
+  font-family: 'Noto Sans JP', sans-serif; font-weight: 700; font-size: 15px;
+  padding: 16px 32px; border-radius: 4px; text-decoration: none; transition: all 0.2s; letter-spacing: 0.04em;
+}
+.btn-primary:hover { background: #17D6B0; transform: translateY(-2px); }
+.btn-primary svg { width: 16px; height: 16px; }
+.btn-secondary {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: transparent; color: var(--white);
+  font-family: 'Noto Sans JP', sans-serif; font-weight: 400; font-size: 15px;
+  padding: 16px 32px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.25);
+  text-decoration: none; transition: all 0.2s;
+}
+.btn-secondary:hover { border-color: var(--white); background: rgba(255,255,255,0.06); }
+.hero-stats { position: relative; z-index: 10; display: flex; gap: 0; border-top: 1px solid rgba(255,255,255,0.08); padding: 0 60px; }
+.stat-item { flex: 1; padding: 28px 32px 28px 0; border-right: 1px solid rgba(255,255,255,0.08); }
+.stat-item:last-child { border-right: none; }
+.stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 38px; color: var(--teal-bright); letter-spacing: 0.05em; line-height: 1; margin-bottom: 6px; }
+.stat-label { font-size: 12px; font-weight: 300; color: rgba(255,255,255,0.5); letter-spacing: 0.06em; line-height: 1.5; }
+
+/* ── SECTIONS ── */
+section { padding: 100px 60px; }
+.section-label { font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 400; letter-spacing: 0.25em; color: var(--teal-bright); text-transform: uppercase; margin-bottom: 20px; display: flex; align-items: center; gap: 12px; }
+.section-label::before { content: ''; display: block; width: 24px; height: 1px; background: var(--teal-bright); }
+.section-title { font-weight: 700; font-size: clamp(26px, 3.5vw, 40px); line-height: 1.3; margin-bottom: 20px; }
+.section-sub { font-size: 16px; font-weight: 300; color: rgba(255,255,255,0.6); line-height: 1.85; max-width: 600px; margin-bottom: 60px; }
+
+/* ── PAIN ── */
+.pain-section { background: var(--navy-mid); }
+.pain-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 2px; }
+.pain-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); padding: 40px 36px; position: relative; transition: all 0.3s; }
+.pain-card:hover { background: rgba(255,255,255,0.06); border-color: rgba(20,188,156,0.3); }
+.pain-card::before { content: attr(data-num); font-family: 'Bebas Neue', sans-serif; font-size: 72px; color: rgba(255,255,255,0.04); position: absolute; top: 16px; right: 24px; line-height: 1; }
+.pain-icon { width: 44px; height: 44px; border-radius: 8px; background: rgba(20,188,156,0.12); border: 1px solid rgba(20,188,156,0.25); display: flex; align-items: center; justify-content: center; margin-bottom: 20px; }
+.pain-icon svg { width: 20px; height: 20px; stroke: var(--teal-bright); }
+.pain-card h3 { font-size: 16px; font-weight: 700; margin-bottom: 12px; line-height: 1.4; }
+.pain-card p { font-size: 14px; font-weight: 300; color: rgba(255,255,255,0.55); line-height: 1.75; }
+
+/* ── HOW IT WORKS DIAGRAM ── */
+.howit-section { background: var(--navy); }
+.diagram-wrap { margin-bottom: 64px; }
+
+/* SVG diagram area */
+.diagram-svg-container { width: 100%; overflow-x: auto; }
+.diagram-svg-container svg { display: block; width: 100%; max-width: 860px; margin: 0 auto; }
+
+/* flow detail boxes below diagram */
+.flow-detail { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 48px; }
+.flow-detail-item { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-top: 2px solid var(--teal-bright); padding: 28px 24px; border-radius: 0 0 6px 6px; }
+.flow-detail-item h4 { font-size: 14px; font-weight: 700; color: var(--teal-bright); margin-bottom: 10px; letter-spacing: 0.06em; }
+.flow-detail-item p { font-size: 13px; font-weight: 300; color: rgba(255,255,255,0.6); line-height: 1.75; }
+
+/* features */
+.features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 16px; }
+.feature-item { padding: 36px 32px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); border-radius: 4px; transition: all 0.3s; }
+.feature-item:hover { background: rgba(20,188,156,0.05); border-color: rgba(20,188,156,0.2); }
+.feature-num { font-family: 'Bebas Neue', sans-serif; font-size: 44px; color: rgba(20,188,156,0.25); line-height: 1; margin-bottom: 12px; }
+.feature-item h3 { font-size: 16px; font-weight: 700; margin-bottom: 10px; line-height: 1.4; }
+.feature-item p { font-size: 14px; font-weight: 300; color: rgba(255,255,255,0.55); line-height: 1.75; }
+
+/* ── USECASE ── */
+.usecase-section { background: var(--navy-mid); }
+.usecase-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+.usecase-card { border-radius: 6px; overflow: hidden; border: 1px solid rgba(255,255,255,0.08); transition: all 0.3s; }
+.usecase-card:hover { border-color: rgba(20,188,156,0.3); transform: translateY(-4px); }
+.usecase-header { background: linear-gradient(135deg, rgba(26,82,118,0.8), rgba(20,143,119,0.5)); padding: 32px 28px 24px; position: relative; overflow: hidden; }
+.usecase-header::after { content: ''; position: absolute; bottom: -20px; right: -20px; width: 100px; height: 100px; border-radius: 50%; background: rgba(20,188,156,0.1); }
+.usecase-tag { font-size: 10px; font-weight: 700; letter-spacing: 0.2em; color: var(--teal-bright); text-transform: uppercase; margin-bottom: 10px; }
+.usecase-header h3 { font-size: 19px; font-weight: 700; line-height: 1.4; }
+.usecase-body { background: rgba(255,255,255,0.03); padding: 24px 28px; }
+.usecase-body p { font-size: 14px; font-weight: 300; color: rgba(255,255,255,0.65); line-height: 1.8; margin-bottom: 16px; }
+.usecase-effect { font-size: 13px; font-weight: 500; color: var(--teal-bright); display: flex; align-items: flex-start; gap: 8px; }
+.usecase-effect::before { content: '→'; flex-shrink: 0; }
+
+/* ── STEPS ── */
+.steps-section { background: var(--navy); }
+.steps-track { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; position: relative; margin-bottom: 60px; }
+.steps-track::before { content: ''; position: absolute; top: 28px; left: 10%; right: 10%; height: 1px; background: linear-gradient(90deg, var(--teal-bright), rgba(20,188,156,0.2)); }
+.step-item { text-align: center; padding: 0 16px; position: relative; }
+.step-dot { width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-family: 'Bebas Neue', sans-serif; font-size: 22px; position: relative; z-index: 2; }
+.step-dot.active { background: var(--teal-bright); color: var(--navy); }
+.step-dot.future { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.4); }
+.step-label { font-size: 13px; font-weight: 700; margin-bottom: 8px; }
+.step-desc { font-size: 12px; font-weight: 300; color: rgba(255,255,255,0.5); line-height: 1.6; }
+.step-price { margin-top: 10px; display: inline-block; font-size: 11px; font-weight: 700; color: var(--accent); background: rgba(232,184,75,0.1); border: 1px solid rgba(232,184,75,0.25); padding: 3px 10px; border-radius: 20px; }
+
+/* ── TRUST ── */
+.trust-section { background: var(--navy-mid); border-top: 1px solid rgba(255,255,255,0.06); }
+.partner-row { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 16px; }
+.partner-badge { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12); border-radius: 4px; padding: 12px 24px; font-size: 14px; font-weight: 500; color: rgba(255,255,255,0.8); letter-spacing: 0.04em; }
+.trust-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; margin-top: 60px; align-items: start; }
+.trust-text h3 { font-size: 22px; font-weight: 700; margin-bottom: 16px; line-height: 1.4; }
+.trust-text p { font-size: 15px; font-weight: 300; color: rgba(255,255,255,0.65); line-height: 1.85; }
+.next5g-badge { background: linear-gradient(135deg, rgba(26,82,118,0.5), rgba(20,143,119,0.3)); border: 1px solid rgba(20,188,156,0.3); border-radius: 8px; padding: 32px 36px; }
+.next5g-badge .badge-label { font-size: 10px; font-weight: 700; letter-spacing: 0.2em; color: var(--teal-bright); text-transform: uppercase; margin-bottom: 12px; }
+.next5g-badge h4 { font-size: 18px; font-weight: 700; margin-bottom: 10px; line-height: 1.4; }
+.next5g-badge p { font-size: 13px; font-weight: 300; color: rgba(255,255,255,0.6); line-height: 1.75; }
+
+/* ── CTA ── */
+.cta-section { background: linear-gradient(135deg, rgba(20,143,119,0.25), rgba(26,82,118,0.4)); border-top: 1px solid rgba(20,188,156,0.2); text-align: center; padding: 100px 60px; }
+.cta-section h2 { font-size: clamp(28px, 4vw, 44px); font-weight: 700; line-height: 1.3; margin-bottom: 20px; }
+.cta-section p { font-size: 16px; font-weight: 300; color: rgba(255,255,255,0.65); margin-bottom: 48px; line-height: 1.8; }
+
+/* ── FOOTER ── */
+footer { background: rgba(0,0,0,0.4); border-top: 1px solid rgba(255,255,255,0.06); padding: 40px 60px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+.footer-logo { font-family: 'DM Sans', sans-serif; font-weight: 500; font-size: 16px; color: rgba(255,255,255,0.6); }
+.footer-logo span { color: var(--teal-bright); }
+footer p { font-size: 12px; color: rgba(255,255,255,0.3); }
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+.hero-eyebrow { animation: fadeUp 0.6s ease 0.1s both; }
+.hero-title { animation: fadeUp 0.6s ease 0.2s both; }
+.hero-desc { animation: fadeUp 0.6s ease 0.3s both; }
+.hero-cta { animation: fadeUp 0.6s ease 0.4s both; }
+.hero-stats { animation: fadeUp 0.6s ease 0.5s both; }
+
+@media (max-width: 900px) {
+  nav, section, .hero-content, .hero-stats { padding-left: 24px; padding-right: 24px; }
+  .hero-stats { flex-direction: column; }
+  .features-grid, .flow-detail, .trust-grid { grid-template-columns: 1fr; }
+  .steps-track { grid-template-columns: 1fr 1fr; }
+  .steps-track::before { display: none; }
+  footer { flex-direction: column; align-items: flex-start; }
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="grid-lines"></div>
+  <nav>
+    <div class="logo">i<span>Presence</span></div>
+    <div class="nav-badge">Tokyo NEXT5G Boosters Project 採択</div>
+  </nav>
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      <div class="product-name">Field Eye</div>
+      <div class="product-by">by iPresence株式会社</div>
+    </div>
+    <div class="hero-label">遠隔高精細視認ソリューション</div>
+    <h1 class="hero-title" style="margin-top:16px">
+      人が入れない場所を、<br>
+      <span class="accent">遠隔からリアルタイムに見る。</span>
+    </h1>
+    <p class="hero-desc">液漏れ・狭隘部・設備点検——現場に人を送らなくても、高精細映像で即座に状況を把握できます。自律移動ロボットと業務用PTZカメラを組み合わせた、まったく新しい遠隔視認の形です。</p>
+    <div class="hero-cta">
+      <a href="https://www.ipresence.jp/contact" class="btn-primary" target="_blank">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        まずはオンラインデモを依頼する
+      </a>
+      <a href="#usecase" class="btn-secondary">ユースケースを見る</a>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="stat-item">
+      <div class="stat-num">PTZ</div>
+      <div class="stat-label">パン・チルト・ズーム対応<br>高精細リモートカメラ</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">4K</div>
+      <div class="stat-label">高精細映像<br>リアルタイム伝送</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">自律</div>
+      <div class="stat-label">移動ロボットが<br>エリアを巡回</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">PoC</div>
+      <div class="stat-label">小規模実証から<br>始められる</div>
+    </div>
+  </div>
+</div>
+
+<!-- PAIN -->
+<section class="pain-section">
+  <div class="section-label">現場の課題</div>
+  <h2 class="section-title">こんな現場の悩み、ありませんか？</h2>
+  <p class="section-sub">人の移動コスト・安全リスク・確認精度の限界——Field Eyeが解決します。</p>
+  <div class="pain-grid">
+    <div class="pain-card" data-num="01">
+      <div class="pain-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M12 9v4m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <h3>人が近づけない・入りにくいエリアがある</h3>
+      <p>高温・高圧・狭隘部・危険物周辺など、安全上の理由で人が近づけない箇所の点検が課題になっている。</p>
+    </div>
+    <div class="pain-card" data-num="02">
+      <div class="pain-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><circle cx="12" cy="12" r="10" stroke-linecap="round"/><path d="M12 8v4l3 3" stroke-linecap="round"/></svg></div>
+      <h3>異常確認のたびに専門家の現地訪問が必要</h3>
+      <p>液漏れ・設備異常の確認に都度、専門家や担当者が移動している。出張コストと時間ロスが積み重なっている。</p>
+    </div>
+    <div class="pain-card" data-num="03">
+      <div class="pain-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2" stroke-linecap="round"/><path d="M8 21h8M12 17v4" stroke-linecap="round"/></svg></div>
+      <h3>固定カメラでは細部が確認できない</h3>
+      <p>設置済みの固定カメラでは画角・解像度・ズームが不十分で、異常の詳細な確認には結局現地に行く必要がある。</p>
+    </div>
+    <div class="pain-card" data-num="04">
+      <div class="pain-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" stroke-linecap="round"/></svg></div>
+      <h3>熟練者・専門家の現場常駐が難しい</h3>
+      <p>技術者の高齢化・人手不足で、ベテランが複数拠点をカバーしなければならない。遠隔からの支援・指示が求められている。</p>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="howit-section">
+  <div class="section-label">仕組み</div>
+  <h2 class="section-title">Field Eye の利用イメージ</h2>
+  <p class="section-sub">現場を動くロボットと、遠隔地のオペレーターが連携。「移動」×「高精細映像」×「リアルタイム会話」を同時に実現します。</p>
+
+  <div class="diagram-wrap">
+    <!-- SVG Diagram -->
+    <div class="diagram-svg-container">
+      <svg viewBox="0 0 860 420" xmlns="http://www.w3.org/2000/svg" font-family="'Noto Sans JP', sans-serif">
+        <defs>
+          <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M2 1L8 5L2 9" fill="none" stroke="#1ABC9C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </marker>
+          <marker id="arr2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M2 1L8 5L2 9" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </marker>
+        </defs>
+
+        <!-- Background panels -->
+        <!-- Factory side -->
+        <rect x="20" y="20" width="320" height="380" rx="12" fill="rgba(26,82,118,0.15)" stroke="rgba(26,130,180,0.3)" stroke-width="1"/>
+        <text x="180" y="50" text-anchor="middle" font-size="11" font-weight="700" fill="#1ABC9C" letter-spacing="3">FIELD  —  現場</text>
+
+        <!-- Remote side -->
+        <rect x="520" y="20" width="320" height="380" rx="12" fill="rgba(20,143,119,0.12)" stroke="rgba(20,188,156,0.25)" stroke-width="1"/>
+        <text x="680" y="50" text-anchor="middle" font-size="11" font-weight="700" fill="#1ABC9C" letter-spacing="3">REMOTE  —  遠隔拠点</text>
+
+        <!-- Center channel -->
+        <rect x="355" y="140" width="150" height="140" rx="8" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+        <text x="430" y="192" text-anchor="middle" font-size="10" fill="rgba(255,255,255,0.5)" letter-spacing="1">高精細映像</text>
+        <text x="430" y="208" text-anchor="middle" font-size="10" fill="rgba(255,255,255,0.5)" letter-spacing="1">双方向音声</text>
+        <text x="430" y="224" text-anchor="middle" font-size="10" fill="rgba(255,255,255,0.5)" letter-spacing="1">操作コマンド</text>
+        <text x="430" y="248" text-anchor="middle" font-size="9" fill="rgba(20,188,156,0.7)">次世代通信</text>
+
+        <!-- ROBOT (temi) -->
+        <g>
+          <!-- body -->
+          <rect x="100" y="190" width="80" height="100" rx="10" fill="rgba(26,82,118,0.6)" stroke="#2471A3" stroke-width="1.5"/>
+          <!-- head/screen -->
+          <rect x="108" y="198" width="64" height="44" rx="6" fill="rgba(20,188,156,0.2)" stroke="#1ABC9C" stroke-width="1"/>
+          <!-- face indicator -->
+          <circle cx="140" cy="220" r="10" fill="rgba(20,188,156,0.3)" stroke="#1ABC9C" stroke-width="1"/>
+          <text x="140" y="225" text-anchor="middle" font-size="12" fill="#1ABC9C">●</text>
+          <!-- wheels -->
+          <ellipse cx="120" cy="292" rx="14" ry="6" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+          <ellipse cx="160" cy="292" rx="14" ry="6" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+          <!-- camera mount arm -->
+          <rect x="155" y="170" width="8" height="30" rx="3" fill="rgba(255,255,255,0.2)" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+          <!-- camera body -->
+          <rect x="148" y="148" width="44" height="28" rx="4" fill="rgba(232,184,75,0.25)" stroke="#E8B84B" stroke-width="1.5"/>
+          <circle cx="185" cy="162" r="8" fill="rgba(232,184,75,0.15)" stroke="#E8B84B" stroke-width="1.5"/>
+          <circle cx="185" cy="162" r="4" fill="rgba(232,184,75,0.3)"/>
+          <text x="163" y="168" text-anchor="middle" font-size="7" fill="#E8B84B" font-weight="700">Canon</text>
+        </g>
+
+        <!-- Robot label -->
+        <text x="140" y="320" text-anchor="middle" font-size="12" font-weight="700" fill="white">temi Platform</text>
+        <text x="140" y="338" text-anchor="middle" font-size="10" fill="rgba(255,255,255,0.5)">自律移動ロボット</text>
+
+        <!-- Camera label -->
+        <text x="170" y="142" text-anchor="middle" font-size="10" fill="#E8B84B">Canon Remote Camera</text>
+
+        <!-- Factory floor -->
+        <rect x="40" y="300" width="290" height="2" fill="rgba(255,255,255,0.08)"/>
+        <!-- Pipe/equipment visual -->
+        <rect x="240" y="200" width="60" height="100" rx="4" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+        <rect x="252" y="210" width="36" height="8" rx="2" fill="rgba(255,255,255,0.1)"/>
+        <rect x="252" y="228" width="36" height="8" rx="2" fill="rgba(255,255,255,0.1)"/>
+        <rect x="252" y="246" width="36" height="8" rx="2" fill="rgba(255,255,255,0.1)"/>
+        <!-- leak indicator -->
+        <circle cx="288" cy="246" r="5" fill="rgba(232,75,75,0.6)" stroke="rgba(232,75,75,0.9)" stroke-width="1"/>
+        <text x="288" y="270" text-anchor="middle" font-size="9" fill="rgba(232,75,75,0.8)">要確認</text>
+        <text x="270" y="186" text-anchor="middle" font-size="10" fill="rgba(255,255,255,0.4)">設備・配管</text>
+
+        <!-- Zoom beam from camera to equipment -->
+        <line x1="192" y1="162" x2="248" y2="235" stroke="rgba(232,184,75,0.3)" stroke-width="1" stroke-dasharray="4 3"/>
+        <polygon points="192,162 210,155 205,170" fill="rgba(232,184,75,0.2)" stroke="#E8B84B" stroke-width="0.5"/>
+
+        <!-- Movement arrows for robot -->
+        <path d="M90 295 Q60 310 80 330" fill="none" stroke="rgba(20,188,156,0.4)" stroke-width="1.5" stroke-dasharray="3 3" marker-end="url(#arr)"/>
+        <text x="52" y="328" font-size="9" fill="rgba(20,188,156,0.6)">自律移動</text>
+
+        <!-- COMMUNICATION ARROWS -->
+        <!-- video feed right -->
+        <line x1="340" y1="185" x2="355" y2="185" stroke="#1ABC9C" stroke-width="1.5" marker-end="url(#arr)"/>
+        <!-- control left -->
+        <line x1="355" y1="230" x2="340" y2="230" stroke="rgba(255,255,255,0.35)" stroke-width="1.5" marker-end="url(#arr2)"/>
+        <!-- from center to remote -->
+        <line x1="505" y1="185" x2="520" y2="185" stroke="#1ABC9C" stroke-width="1.5" marker-end="url(#arr)"/>
+        <line x1="520" y1="230" x2="505" y2="230" stroke="rgba(255,255,255,0.35)" stroke-width="1.5" marker-end="url(#arr2)"/>
+
+        <!-- OPERATOR / REMOTE SIDE -->
+        <!-- Monitor -->
+        <rect x="560" y="140" width="200" height="130" rx="8" fill="rgba(13,27,42,0.8)" stroke="rgba(20,188,156,0.4)" stroke-width="1.5"/>
+        <!-- Screen content simulation -->
+        <rect x="570" y="150" width="180" height="110" rx="4" fill="rgba(26,82,118,0.4)"/>
+        <!-- simulated robot view on screen -->
+        <rect x="580" y="158" width="160" height="80" rx="3" fill="rgba(20,143,119,0.15)" stroke="rgba(20,188,156,0.2)" stroke-width="0.5"/>
+        <!-- crosshair -->
+        <line x1="660" y1="168" x2="660" y2="228" stroke="rgba(20,188,156,0.3)" stroke-width="0.5"/>
+        <line x1="630" y1="198" x2="690" y2="198" stroke="rgba(20,188,156,0.3)" stroke-width="0.5"/>
+        <circle cx="660" cy="198" r="12" fill="none" stroke="rgba(20,188,156,0.4)" stroke-width="0.5"/>
+        <!-- zoom indicator -->
+        <text x="588" y="170" font-size="8" fill="rgba(20,188,156,0.6)">LIVE 4K</text>
+        <circle cx="730" cy="163" r="4" fill="rgba(232,75,75,0.8)"/>
+        <!-- stand -->
+        <rect x="648" y="270" width="24" height="16" rx="2" fill="rgba(255,255,255,0.1)"/>
+        <rect x="630" y="284" width="60" height="4" rx="2" fill="rgba(255,255,255,0.12)"/>
+
+        <!-- Operator person -->
+        <circle cx="680" cy="340" r="18" fill="rgba(26,82,118,0.5)" stroke="#2471A3" stroke-width="1.5"/>
+        <text x="680" y="346" text-anchor="middle" font-size="16" fill="rgba(255,255,255,0.7)">👤</text>
+
+        <!-- PTZ control UI hint -->
+        <rect x="558" y="300" width="80" height="60" rx="6" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+        <text x="598" y="320" text-anchor="middle" font-size="8" fill="rgba(255,255,255,0.5)">PTZ操作</text>
+        <text x="598" y="334" text-anchor="middle" font-size="16" fill="rgba(20,188,156,0.6)">⊕</text>
+        <text x="598" y="350" text-anchor="middle" font-size="8" fill="rgba(255,255,255,0.4)">移動・ズーム</text>
+
+        <!-- Remote labels -->
+        <text x="660" y="365" text-anchor="middle" font-size="12" font-weight="700" fill="white">遠隔オペレーター</text>
+        <text x="660" y="382" text-anchor="middle" font-size="10" fill="rgba(255,255,255,0.5)">専門家・管理者</text>
+        <text x="660" y="130" text-anchor="middle" font-size="11" font-weight="500" fill="rgba(255,255,255,0.7)">高精細映像モニター</text>
+
+        <!-- zoom callout on screen -->
+        <rect x="692" y="158" width="52" height="36" rx="3" fill="rgba(232,184,75,0.15)" stroke="#E8B84B" stroke-width="0.5"/>
+        <text x="718" y="172" text-anchor="middle" font-size="7" fill="#E8B84B">× ZOOM</text>
+        <text x="718" y="185" text-anchor="middle" font-size="8" fill="#E8B84B" font-weight="700">配管詳細</text>
+      </svg>
+    </div>
+
+    <!-- Flow detail -->
+    <div class="flow-detail">
+      <div class="flow-detail-item">
+        <h4>STEP 1　現場を自律巡回</h4>
+        <p>temi Platformが設定エリアを自律移動。遠隔オペレーターはロボットの移動先を指示しながら、搭載されたCanon PTZカメラで現場全体を把握します。</p>
+      </div>
+      <div class="flow-detail-item">
+        <h4>STEP 2　気になる箇所をズーム確認</h4>
+        <p>異常が疑われる配管・設備・部品をカメラでクローズアップ。光学ズームにより、数十メートル先の文字・液漏れのにじみ・表面の変色まで高精細で確認できます。</p>
+      </div>
+      <div class="flow-detail-item">
+        <h4>STEP 3　現地担当者と会話しながら対処</h4>
+        <p>temiのテレビ電話機能で、遠隔専門家と現地作業者がリアルタイムに会話。映像を共有しながら状況をすり合わせ、その場で指示・確認を完結できます。</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="features-grid">
+    <div class="feature-item">
+      <div class="feature-num">01</div>
+      <h3>移動しながら見る</h3>
+      <p>固定カメラとの決定的な差異。ロボットが現場を移動しながら、死角ゼロで巡回。遠隔操作で任意の位置に移動させることも可能。</p>
+    </div>
+    <div class="feature-item">
+      <div class="feature-num">02</div>
+      <h3>細部まで高精細に見る</h3>
+      <p>業務用PTZカメラの光学ズームで、液漏れの微細なにじみや設備表示の文字まで、離れた位置からリアルタイムに確認できる。</p>
+    </div>
+    <div class="feature-item">
+      <div class="feature-num">03</div>
+      <h3>話しながら確認する</h3>
+      <p>映像と音声の同時双方向通信で、遠隔の専門家と現地作業者がリアルタイムに会話しながら状況をすり合わせられる。</p>
+    </div>
+  </div>
+</section>
+
+<!-- USECASE -->
+<section class="usecase-section" id="usecase">
+  <div class="section-label">ユースケース</div>
+  <h2 class="section-title">具体的な活用シーン</h2>
+  <p class="section-sub">「見えないところを見る」ニーズがある現場であれば、業種を問わず適用できます。</p>
+  <div class="usecase-grid">
+    <div class="usecase-card">
+      <div class="usecase-header">
+        <div class="usecase-tag">製造業・工場</div>
+        <h3>液漏れ・異常箇所の<br>遠隔リアルタイム確認</h3>
+      </div>
+      <div class="usecase-body">
+        <p>配管や設備からの液漏れ・気体漏れを、遠隔地の専門家がロボットカメラで即座に確認。ズームで細部まで観察しながら、現地作業者に指示を出せる。</p>
+        <div class="usecase-effect">出張・現地訪問の削減。異常発見から対応指示までの時間を大幅短縮。</div>
+      </div>
+    </div>
+    <div class="usecase-card">
+      <div class="usecase-header">
+        <div class="usecase-tag">製造業・工場</div>
+        <h3>狭隘部・侵入困難エリアの<br>遠隔点検</h3>
+      </div>
+      <div class="usecase-body">
+        <p>人が入りにくい狭い通路・機器の裏側・高所付近などをロボットが代わりに移動して撮影。危険エリアへの人の立ち入りを最小化しながら点検を実施。</p>
+        <div class="usecase-effect">作業者の安全確保と点検業務の効率化を同時に実現。</div>
+      </div>
+    </div>
+    <div class="usecase-card">
+      <div class="usecase-header">
+        <div class="usecase-tag">製造業・インフラ</div>
+        <h3>熟練技術者による<br>多拠点遠隔支援</h3>
+      </div>
+      <div class="usecase-body">
+        <p>1人のベテラン技術者が複数工場・拠点をリモートでカバー。ロボットが現場を案内する形で、映像を共有しながらリアルタイムに判断・指示。</p>
+        <div class="usecase-effect">技術者1名で複数拠点を同日対応。技術継承・人手不足への対応。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STEPS -->
+<section class="steps-section">
+  <div class="section-label">導入ステップ</div>
+  <h2 class="section-title">まず小さく試して、効果を確認する</h2>
+  <p class="section-sub">初期投資を抑えたPoC（実証実験）から始め、効果を確認してから本格導入へ進められます。</p>
+  <div class="steps-track">
+    <div class="step-item">
+      <div class="step-dot active">01</div>
+      <div class="step-label">オンラインデモ</div>
+      <div class="step-desc">実際の映像・操作を遠隔で体験。課題とのフィット感を確認。</div>
+    </div>
+    <div class="step-item">
+      <div class="step-dot active">02</div>
+      <div class="step-label">PoC設計・提案</div>
+      <div class="step-desc">貴社の具体的な現場課題に合わせたPoC設計書と見積りを提示。</div>
+      <div class="step-price">〜100万円規模</div>
+    </div>
+    <div class="step-item">
+      <div class="step-dot active">03</div>
+      <div class="step-label">PoC実施・効果測定</div>
+      <div class="step-desc">現場にて実証実験を実施。効果測定レポートで本導入の判断材料を提供。</div>
+    </div>
+    <div class="step-item">
+      <div class="step-dot future">04</div>
+      <div class="step-label">本格導入</div>
+      <div class="step-desc">PoCの結果をもとに、最適な構成で本導入。保守・運用サポートも提供。</div>
+      <div class="step-price">400万円〜</div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST -->
+<section class="trust-section">
+  <div class="section-label">信頼性・パートナー</div>
+  <h2 class="section-title">確かな技術基盤と協業体制</h2>
+  <div class="partner-row">
+    <div class="partner-badge">キヤノンマーケティングジャパン株式会社</div>
+    <div class="partner-badge">TIS株式会社</div>
+  </div>
+  <div class="trust-grid">
+    <div class="trust-text">
+      <h3>キヤノンMJとの協業による<br>高精細カメラ技術</h3>
+      <p>キヤノンマーケティングジャパンとの連携により、業務用高精細リモートカメラの技術・サポート体制を確保しています。機器品質・通信環境・アプリケーション開発の三位一体で、導入から運用まで一貫してサポートします。</p>
+    </div>
+    <div class="next5g-badge">
+      <div class="badge-label">採択プロジェクト</div>
+      <h4>Tokyo NEXT5G Boosters Project</h4>
+      <p>東京都が実施する次世代通信技術活用型スタートアップ支援事業に採択。開発プロモーターTIS株式会社の支援のもと、次世代通信を活用した遠隔視認ソリューションの社会実装を推進しています。</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <h2>まずはオンラインデモから<br>はじめませんか？</h2>
+  <p>「体験してみないとわからない」製品です。<br>実際の映像・遠隔操作を30分のオンラインセッションでご体験いただけます。</p>
+  <a href="https://www.ipresence.jp/contact" class="btn-primary" target="_blank" style="display:inline-flex;font-size:17px;padding:20px 44px;">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+    お問い合わせ・デモ依頼はこちら
+  </a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Field Eye　by　i<span>Presence</span>株式会社</div>
+  <p>© 2026 iPresence株式会社. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
