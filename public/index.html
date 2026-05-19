@@ -177,22 +177,37 @@ document.addEventListener('DOMContentLoaded', async function() {
       window.Babel.transformScriptTags();
     }
 
-    const youtubeThumbs = {
-      W3kNfE3v3AI: 'https://i.ytimg.com/vi/W3kNfE3v3AI/maxresdefault.jpg',
-      '7jZasYVxv1g': 'https://i.ytimg.com/vi/7jZasYVxv1g/maxresdefault.jpg'
-    };
+    const youtubeFrames = [];
+    function withYouTubeParams(rawSrc, params) {
+      const hashIndex = rawSrc.indexOf('#');
+      const baseSrc = hashIndex === -1 ? rawSrc : rawSrc.slice(0, hashIndex);
+      const hash = hashIndex === -1 ? '' : rawSrc.slice(hashIndex);
+      const joiner = baseSrc.indexOf('?') === -1 ? '?' : '&';
+      return baseSrc + joiner + params + hash;
+    }
     document.querySelectorAll('iframe[src*="youtube.com/embed/"]').forEach(function(frame) {
       const rawSrc = frame.getAttribute('src') || '';
-      const match = rawSrc.match(/\/embed\/([^?&]+)/);
-      if (!match || !youtubeThumbs[match[1]]) return;
-      const autoplaySrc = rawSrc + (rawSrc.indexOf('?') === -1 ? '?' : '&') + 'autoplay=1';
-      const href = autoplaySrc.split('&').join('&amp;');
-      frame.setAttribute('srcdoc',
-        '<style>*{box-sizing:border-box}body{margin:0;background:#050b14}a{position:relative;display:block;width:100%;height:100%;overflow:hidden;color:white}img{width:100%;height:100%;object-fit:cover;display:block}a:before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,11,20,.04),rgba(5,11,20,.32))}.play{position:absolute;left:50%;top:50%;width:76px;height:76px;transform:translate(-50%,-50%);display:grid;place-items:center;border-radius:50%;background:rgba(8,18,32,.82);box-shadow:0 0 0 1px rgba(255,255,255,.28),0 18px 50px rgba(0,0,0,.36)}.play:before{content:"";display:block;margin-left:5px;border-top:16px solid transparent;border-bottom:16px solid transparent;border-left:24px solid #fff}</style>' +
-        '<a href="' + href + '"><img src="' + youtubeThumbs[match[1]] + '" alt="Field Eye demo video thumbnail"><span class="play"></span></a>'
-      );
+      if (!rawSrc.match(/\/embed\/([^?&]+)/)) return;
+      frame.dataset.autoplaySrc = withYouTubeParams(rawSrc, 'autoplay=1&mute=1&playsinline=1');
+      youtubeFrames.push(frame);
     });
-  } catch (err) {
+    function autoplayFrame(frame) {
+      if (!frame || frame.dataset.autoplayed === 'true') return;
+      frame.dataset.autoplayed = 'true';
+      frame.setAttribute('src', frame.dataset.autoplaySrc);
+    }
+    if ('IntersectionObserver' in window) {
+      const videoObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (!entry.isIntersecting) return;
+          autoplayFrame(entry.target);
+          videoObserver.unobserve(entry.target);
+        });
+      }, { threshold: 0.45, rootMargin: '0px 0px -10% 0px' });
+      youtubeFrames.forEach(function(frame) { videoObserver.observe(frame); });
+    } else {
+      youtubeFrames.forEach(autoplayFrame);
+    }  } catch (err) {
     setStatus('Error unpacking: ' + err.message);
     console.error('Bundle unpack error:', err);
   }
