@@ -1,0 +1,15 @@
+{
+  "projects": {
+    "default": "ipresence-site"
+  },
+  "targets": {
+    "ipresence-site": {
+      "hosting": {
+        "field-eye": [
+          "field-eye"
+        ]
+      }
+    }
+  },
+  "etags": {}
+}
